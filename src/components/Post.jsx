@@ -8,7 +8,7 @@ export function Post() {
       <div className={styles.author}>
       <img className={styles.avatar} src="./src/assets/neuber.png" />
       <div className={styles.authorInfo}>
-        <strong>Capirôneuber Rocha</strong>
+        <strong>Neuber Rocha</strong>
         <span>Eng. Civil</span>
         </div>
        </div>

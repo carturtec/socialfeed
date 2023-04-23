@@ -9,7 +9,7 @@ export function Sidebar() {
 
       <div className={styles.profile}>
         <img className={styles.avatar} src="./src/assets/neuber.png" />
-        <strong>Capirôneuber Rocha</strong>
+        <strong>Neuber Rocha</strong>
         <span>Eng. Civil</span>
       </div>
 
