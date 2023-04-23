@@ -1,0 +1,37 @@
+:root {
+  --white: #ffffff;
+
+  --blue-100: #dbeafe;
+  --blue-300: #93c5fd;
+  --blue-400: #60a5fa;
+  --blue-600: #2563eb;
+  --blue-700: #1d4ed8;
+  --blue-800: #1e40af;
+  --blue-900: #1e3a8a;
+
+  --esmerald-200: #99f6e4;
+  --esmerald-400: #34d399;
+}
+
+:focus {
+  outline: transparent;
+  box-shadow: 0 0 0 2px; var(--esmerald-400);
+}
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--blue-900);
+  color: var(--blue-100);
+  -webkit-font-smoothing: antialiased;
+}
+
+body, input, textarea, button {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 1rem; // 1rem = 16px
+}
