@@ -1,48 +1,108 @@
+/* eslint-disable no-undef */
+/* eslint-disable react/jsx-key */
+/* eslint-disable react/prop-types */
+
+import { format, formatDistanceToNow } from 'date-fns';
+import ptBR  from 'date-fns/locale/pt-BR';
 import { Avatar } from './Avatar';
 import { Comment } from './Comment';
 import styles from './Post.module.css';
+import { useState } from 'react';
 
-export function Post() {
+
+export function Post({author, publishedAt, content}) {
+  const [comments, setComments] = useState([
+    'um post qualquer'
+  ])
+    const [newCommentText, setNewCommentText] = useState('');
+
+  const publishedDateFormatted = format(publishedAt, "d 'de' LLLL 'ás' HH:mm'h'", {
+    locale: ptBR,
+  });
+
+  const publishedDateRelativeToNow = formatDistanceToNow(publishedAt, {
+    locale: ptBR,
+    addSuffix: true,
+  });
+
+  function handleCreateNewComment () {
+    event.preventDefault();
+    setComments([...comments, newCommentText]);
+    setNewCommentText('');
+ }
+
+ function handleNewCommentChange() {
+  event.target.setCustomValidity('');
+  setNewCommentText(event.target.value);
+ }
+
+ function handleNewCommentInvalid() {
+  event.target.setCustomValidity('Este campo é obrigatório');
+ }
+
+ function deleteComment(commentToDelete) {
+  const commentsWithoutDeletedOne = comments.filter(comment => {
+    return comment != commentToDelete;
+  })
+  setComments(commentsWithoutDeletedOne);
+ }
+
+ const isNewEmpty = newCommentText.length === 0;
+   
   return (
     <article className={styles.post}>
      <header>
       <div className={styles.author}>
-      <Avatar hasBorder src="./src/assets/neuber.png" />
+      <Avatar src={author.avatarUrl} />
       <div className={styles.authorInfo}>
-        <strong>Neuber Rocha</strong>
-        <span>Eng. Civil</span>
+        <strong>{author.name}</strong>
+        <span>{author.role}</span>
         </div>
        </div>
 
-       <time title="22 de Abril ás 03:12h" dateTime="2023-04-11 03-13-38"> Publicado há 1h</time>
+       <time title={publishedDateFormatted} dateTime={publishedAt.toISOString()}>
+         {publishedDateRelativeToNow}
+       </time>
       </header>
 
       <div className={styles.content}>
-        <p>the readable content of a page when looking at its layout. The point </p>
-        <p>the readable content of a page when looking at its layout. The point </p>
-        <p><a href="#">using Lorem Ipsum is that it has a more-or-less normal distribution </a></p>
-        <p> 
-        <a href=""> #using </a> {' '}
-        <a href=""> #LoremIpsum </a>{' '}
-        <a href=""> #distribution </a>
-         </p>
+        {content.map(line => {
+          if(line.type === 'paragraph') {
+            return <p key={line.content}>{line.content}</p>;
+          }else if(line.type === 'link') {
+            return <p key={line.content}><a href="#">{line.content}</a></p>;
+          }
+        })}
       </div>
 
-      <form className={styles.commentForm}>
+      <form onSubmit={handleCreateNewComment} className={styles.commentForm}>
         <strong>Deixe seu comentário</strong>
 
-        <textarea 
+        <textarea
+           name="comment" 
            placeholder='Deixe seu comentário'
+           value={newCommentText}
+           onChange={handleNewCommentChange}
+           onInvalid={handleNewCommentInvalid}
+           required
         />
         <footer>
-        <button type='submit'>Publicar</button>
+        <button type='submit' disabled={isNewEmpty}>
+          Publicar
+          </button>
         </footer>
       </form>
 
       <div className={styles.commentList}>
-        <Comment />
-        <Comment />
-        <Comment />
+        {comments.map(comment => {
+          return (
+          <Comment
+          key={comment}
+          content={comment} 
+          onDeleteComment={deleteComment}
+          />
+          )
+        })}
       </div>
     </article>
   );
