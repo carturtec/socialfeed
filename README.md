@@ -13,5 +13,16 @@
 
 # socialfeed👇
 ![sf](https://user-images.githubusercontent.com/85030075/233815528-4ee62b16-0d63-445e-85fd-68cf1bb7deb6.png)
+ 
+ 💻 Pré-requisitos
+Antes de começar, verifique se você atendeu aos seguintes requisitos:
+
+Você instalou a versão mais recente do node
+
+🚀 Instalando o projeto SocialFeed:
+Para instalar o projeto, siga estas etapas:
+Fazer o clone do projeto e rodar o comando na pasta raiz:
+
+npm install
 
    
