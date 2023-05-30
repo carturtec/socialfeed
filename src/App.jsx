@@ -6,10 +6,6 @@ import { Sidebar } from './components/Sidebar';
 import styles from './App.module.css';
 import './global.css';
 
-//author:{avatarUrl: "", name: "", role:""}
-//publishedAt: Date
-//content: String
-
 const posts = [
   {
     id: 1,
